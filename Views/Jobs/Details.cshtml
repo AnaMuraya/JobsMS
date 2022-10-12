@@ -1,0 +1,115 @@
+@model ManagementPortal.Models.Job
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Job Details</h2>
+<div class="defaultContainer">
+    <div class="card-group">
+        <div class="card">
+            <div>
+                <hr />
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.JobTitle)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.JobTitle)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.JobType)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.JobType)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Active)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Active)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Location.SiteName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Details.Note)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Details.Note)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Manager)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Manager.FullName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyShifts)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.WeeklyShifts.Default)
+                    </dd>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.JobIb }) |
+                @Html.ActionLink("Back to List", "Index")
+            </p>
+        </div>
+    </div>
+</div>
+    <div class="defaultContainer">
+        <div class="card">
+            <div class="card-body">
+
+                <h5 class="card-title">Job Actions</h5>
+
+                @*NOTE: Here is the 'Create New' link that takes the user to the JobAction's 'Create.cshtml' Views file. *@
+                <p>
+                    @*NOTE: The ActionLink below will apply a query string (of the job Id) on the URL to keep track of the current job model
+                        so that it can get passed to the 'Create' Action method parameter in the 'JobActionController'.  *@
+                    @Html.ActionLink("Create New", "Create", "JobAction", new { jobIDJobFK = Model.JobIb }, null)
+                </p>
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            Action Name
+                        </th>
+                    </tr>
+                    @foreach (var action in Model.JobActions)
+                    {
+                        <tr>
+                            @*NOTE: Here I am using 'DisplayFor' because it provides you with more formatting options in he long run.*@
+                            <td>
+                                @Html.DisplayFor(modelAction => action.Name)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "JobAction", new { id = action.JobActionId }, null) |
+                                @Html.ActionLink("Details", "Details", "JobAction", new { id = action.JobActionId }, null) |
+                                @Html.ActionLink("Delete", "Delete", "JobAction", new { id = action.JobActionId }, null)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
